@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.jnuine.facebook.connect"
+        version="0.11.0">
+
+    <name>Facebook Connect</name>
+
+    <description>Cordova Plugin for Facebook Connect</description>
+
+    <license>Apache 2.0</license>
+
+    <preference name="APP_ID" />
+    <preference name="APP_NAME" />
+
+    <engines>
+        <engine name="cordova" version=">=3.2.0" />
+    </engines>
+
+    <!-- JavaScript interface -->
+    <js-module src="www/FacebookConnect.js" name="FacebookConnect">
+        <clobbers target="facebook.Connect" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="FacebookConnect">
+                <param name="android-package" value="com.jnuine.cordova.facebook.Connect" />
+            </feature>
+            <access origin="https://m.facebook.com" />
+            <access origin="https://graph.facebook.com" />
+            <access origin="https://api.facebook.com" />
+            <access origin="https://*.fbcdn.net" />
+            <access origin="https://*.akamaihd.net" />
+        </config-file>
+
+        <config-file target="res/values/strings.xml" parent="/*">
+            <string name="facebook_app_id">$APP_ID</string>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="application">
+            <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"
+            />
+            <activity
+                android:name="com.facebook.FacebookActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                android:label="@string/app_name"
+            />
+        </config-file>
+
+        <!-- cordova plugin src files -->
+        <source-file src="src/android/Connect.java" target-dir="src/com/jnuine/cordova/facebook" />
+        <framework src="src/android/sdk.gradle" custom="true" type="gradleReference" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="FacebookConnect">
+                <param name="ios-package" value="FacebookConnect"/>
+            </feature>
+            <plugin name="FacebookConnect" value="FacebookConnect"/>
+            <access origin="https://m.facebook.com" />
+            <access origin="https://graph.facebook.com" />
+            <access origin="https://api.facebook.com" />
+            <access origin="https://*.fbcdn.net" />
+            <access origin="https://*.akamaihd.net" />
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="FacebookAppID">
+            <string>$APP_ID</string>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="FacebookDisplayName">
+            <string>$APP_NAME</string>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+          <array>
+            <dict>
+              <key>CFBundleURLSchemes</key>
+              <array>
+                <string>fb$APP_ID</string>
+              </array>
+            </dict>
+          </array>
+        </config-file>
+
+        <header-file src="src/ios/FacebookConnect.h" />
+        <source-file src="src/ios/FacebookConnect.m" />
+
+        <framework src="src/ios/SDK/FBSDKCoreKit.framework" custom="true" />
+        <framework src="src/ios/SDK/FBSDKLoginKit.framework" custom="true" />
+    </platform>
+</plugin>
