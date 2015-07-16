@@ -93,6 +93,9 @@
         <header-file src="src/ios/FacebookConnect.h" />
         <source-file src="src/ios/FacebookConnect.m" />
 
+        <!-- Bolts needed to avoid a "setResult: non-public selector" warning  -->
+        <!-- Could not submit app without that -->
+        <framework src="src/ios/SDK/Bolts.framework" custom="true" />
         <framework src="src/ios/SDK/FBSDKCoreKit.framework" custom="true" />
         <framework src="src/ios/SDK/FBSDKLoginKit.framework" custom="true" />
     </platform>
