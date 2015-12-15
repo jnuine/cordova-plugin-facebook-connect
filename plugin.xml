@@ -59,11 +59,9 @@
                 <param name="ios-package" value="FacebookConnect"/>
             </feature>
             <plugin name="FacebookConnect" value="FacebookConnect"/>
-            <access origin="https://m.facebook.com" />
-            <access origin="https://graph.facebook.com" />
-            <access origin="https://api.facebook.com" />
-            <access origin="https://*.fbcdn.net" />
-            <access origin="https://*.akamaihd.net" />
+            <access origin="https://*.facebook.com" requires-forward-secrecy="false" />
+            <access origin="https://*.fbcdn.net" requires-forward-secrecy="false" />
+            <access origin="https://*.akamaihd.net" requires-forward-secrecy="false" />
         </config-file>
 
         <config-file target="*-Info.plist" parent="FacebookAppID">
