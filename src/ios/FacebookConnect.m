@@ -67,9 +67,10 @@ CDVPluginResult* resultForLoginCallback(FBSDKLoginManagerLoginResult *result, NS
 
 - (void)getUserInfo:(CDVInvokedUrlCommand*)command {
     if ([FBSDKAccessToken currentAccessToken]) {
+        NSString *fields = [[command arguments] objectAtIndex:0];
         NSString *callbackId = [command callbackId];
         __weak CDVPlugin *weakSelf = self;
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:nil]
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": fields}]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              CDVPluginResult *pluginResult;
              if (error) {

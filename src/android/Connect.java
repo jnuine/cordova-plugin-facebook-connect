@@ -1,6 +1,7 @@
 package com.jnuine.cordova.facebook;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -91,7 +92,8 @@ public class Connect extends CordovaPlugin {
             return true;
         }
         if (action.equals("getUserInfo")) {
-            this.getUserInfo();
+            String fields = args.getString(0);
+            this.getUserInfo(fields);
             return true;
         }
         if (action.equals("logout")) {
@@ -138,7 +140,7 @@ public class Connect extends CordovaPlugin {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void getUserInfo () {
+    private void getUserInfo (String fields) {
         GraphRequest request = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -163,6 +165,9 @@ public class Connect extends CordovaPlugin {
                         }
                     }
                 });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", fields);
+        request.setParameters(parameters);
         request.executeAsync();
     }
 
@@ -204,5 +209,3 @@ public class Connect extends CordovaPlugin {
     }
 
 }
-
-

@@ -30,13 +30,13 @@ function logInWithPublishPermissions (permissions, success, fail) {
   );
 }
 
-function getUserInfo (success, fail) {
+function getUserInfo (fields, success, fail) {
   cordova.exec(
     success,
     fail,
     'FacebookConnect',
     'getUserInfo',
-    []
+    [fields]
   );
 }
 
